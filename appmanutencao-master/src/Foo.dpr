@@ -5,15 +5,16 @@ uses
   Main in 'Main.pas' {fMain},
   DatasetLoop in 'DatasetLoop.pas' {fDatasetLoop},
   ClienteServidor in 'ClienteServidor.pas' {fClienteServidor},
-  GerenciamentoDeArquivosExcecoes in 'GerenciamentoDeArquivosExcecoes.pas';
+  GerenciamentoDeArquivosExcecoes in 'GerenciamentoDeArquivosExcecoes.pas',
+  GeracaoArquivosThread in 'GeracaoArquivosThread.pas';
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
-  Application.CreateForm(TfMain, fMain);
-  Application.CreateForm(TfDatasetLoop, fDatasetLoop);
+  AApplication.CreateForm(TfMain, fMain);
+  AApplication.CreateForm(TfDatasetLoop, fDatasetLoop);
   Application.CreateForm(TfClienteServidor, fClienteServidor);
-  Application.Run;
+  plication.Run;
 end.
