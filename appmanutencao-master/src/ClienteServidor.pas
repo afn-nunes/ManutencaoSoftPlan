@@ -46,7 +46,7 @@ const
 implementation
 
 uses
-  IOUtils;
+  IOUtils, GerenciamentoDeArquivosExcecoes;
 
 {$R *.dfm}
 
@@ -89,11 +89,14 @@ begin
   cds.DisableControls();
   try
     lNmArquivo := ExtractFileName(FPathCliente);
+    ProgressBar.Min := 0;
+    ProgressBar.Max := QTD_ARQUIVOS_ENVIAR;
     for i := 0 to QTD_ARQUIVOS_ENVIAR do
     begin
       cds.Append;
       cds.FieldByName('Arquivo').AsString := lNmArquivo;
       cds.Post;
+      ProgressBar.Position := i;
     end;
     FServidor.SalvarArquivos(cds.Data);
   finally
@@ -176,13 +179,12 @@ begin
   except
     DeletaArquivos(lListaDeArquivos);
     lListaDeArquivos.Free();
-    raise;
+    raise ENenhumArquivoGerado.Create;
   end;
 end;
 
 
-
-procedure TServidor.CriarArquivos(cds: TClientDataSet);
+procedure TServidor.CriarArquivos(cds: TClientDataSet);
 var
   FileName: string;
 begin
@@ -201,9 +203,13 @@ procedure TServidor.DeletaArquivos(pListaDeArquivos: TStringList);
 var
   lFileName: string;
 begin
-  for lFileName in pListaDeArquivos do
-  begin
-    if TFile.Exists(lFileName) then
-      TFile.Delete(lFileName);
+  try
+    for lFileName in pListaDeArquivos do
+    begin
+      if TFile.Exists(lFileName) then
+        TFile.Delete(lFileName);
+    end;
+  except
+    raise EFalhaAoDeletarArquivo.Create();
   end;
 end;end.

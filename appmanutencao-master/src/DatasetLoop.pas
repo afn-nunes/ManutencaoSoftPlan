@@ -16,6 +16,7 @@ type
     DBNavigator: TDBNavigator;
     procedure FormCreate(Sender: TObject);
     procedure btDeletarParesClick(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
   private
   public
   end;
@@ -101,6 +102,11 @@ begin
   ClientDataSet.FieldByName('Field1').AsString := 'Field10';
   ClientDataSet.FieldByName('Field2').AsInteger := 1;
   ClientDataSet.Post;
+end;
+
+procedure TfDatasetLoop.FormDestroy(Sender: TObject);
+begin
+  ClientDataSet.Free();
 end;
 
 end.

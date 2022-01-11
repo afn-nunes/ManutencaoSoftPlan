@@ -19,6 +19,9 @@ Dica: antes de iniciar as alterações, leia todo o README.
  - Realize as implementações e correções descritas abaixo e nos envie o projeto de alguma forma: compactado por e-mail, link de algum repo (github, gitlab, etc.), ou faça upload para nuvem e nos envie o link (com acesso público).
  - Envie o projeto limpo, apenas com os **mesmos arquivos enviados originalmente** (sem dcu, binário, etc.).
 
+## Link para o projeto 
+https://github.com/afn-nunes/ManutencaoSoftPlan/tree/master/appmanutencao-master/src
+
 ## Implementações
 
 `Implementação 1: implemente um gerenciador de exceções no projeto. A cada exceção gerada, independente do ponto da aplicação que ocorra, deve passar pelo gerenciador, e a classe e mensagem da exceção devem ser salvas em um arquivo de log. Depois de salva a mensagem no log, a exceção deve ser levantada normalmente. Fica a critério do candidato se quiser criar uma tela específica para mostrar a exceção, ou se quiser tratar algumas exceções. Isso é opcional.`
@@ -36,11 +39,14 @@ Corrija cada defeito descrito abaixo. Na descrição do defeito terá o problema
 `Defeito 1: na tela DatasetLoop, ao clicar no botão "Deletar pares" não deleta todos os pares do dataset. Objetivo: que todos os números pares sejam deletados`
 
 Solução:
+Criei um laço de repetição para deletar todos os registros pares enquanto o seguinte não for ímpar. Dessa forma, antes de dar um Next, todos os pares da sequência são deletados.
 
 `Defeito 2: na tela ClienteServidor, ocorre erro "Out of Memory" ao clicar no botão "Enviar sem erros". Objetivo: que não ocorra erro por falta de memória, e que todos os arquivos sejam enviados para a pasta Servidor normalmente.`
 
 Solução:
+A cada laço de repetição o código acessava o diretório para recuperar o nome do arquivo que era algo fixo. Coloquei o nome do diretório em uma variável, e só depois percorri o laço de repetição para realizar a regra de negócio.
 
 `Defeito 3: na tela ClienteServidor, ao clicar no botão "Enviar com erros", os arquivos enviados anteriormente não são apagados da pasta Servidor. Objetivo: quando ocorrer erro na operação, que é o caso que esse botão simula, os arquivos copiados anteriormente devem ser apagados, simulando um "rollback". Ou seja, no fim da operação, os arquivos devem continuar na pasta apenas se não ocorreu erro na operação. obs: não é para ser corrigido o erro que ocorre ao clicar nesse botão, visto que ele serve justamente para simular um erro.`
-
+ 
 Solução:
+Criei uma lista com o nome de todos os arquivos da pasta antes do código de criação. E no except, criei um método para remover todos esses arquivos do diretório
